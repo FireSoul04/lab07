@@ -15,7 +15,7 @@ public interface Function<I, O> {
      * @return the result of the function evaluation on the provided input
      */
     O call(I input);
-
+    
     /**
      * Returns the identity function, which returns the same object that is provided as input.
      *
@@ -23,7 +23,12 @@ public interface Function<I, O> {
      * @param <T> the input (and output) type of the function
      */
     static <T> Function<T, T> identity() {
-        return null;
+        return new Function<T, T>() {
+            @Override
+            public T call(final T input) {
+                return input;
+            }
+        };
     }
 
 }
