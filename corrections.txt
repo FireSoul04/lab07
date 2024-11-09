@@ -1,2 +1,0 @@
-Risposta alla domanda 72.1
-Non è una costante perché il tipo generico da passare varia ad ogni chiamata di identity().
