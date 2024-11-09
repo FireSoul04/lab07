@@ -30,10 +30,10 @@ public final class MonthSorterNested implements MonthSorter {
         }
 
         public int getDays() {
-            return days;
+            return this.days;
         }
 
-        public Month fromString(final String name) throws IllegalArgumentException {
+        public static Month fromString(final String name) throws IllegalArgumentException {
             final String upperCaseName = Objects.requireNonNull(name.toUpperCase());
             Month returnValue = null;
             int monthsThatContainsName = 0;
@@ -51,16 +51,39 @@ public final class MonthSorterNested implements MonthSorter {
                 return returnValue;
             }
         }
+
+        public static int compare(final Month m1, final Month m2) {
+            return Integer.compare(m1.ordinal(), m2.ordinal());
+        }
+
+        public static int compareDays(final Month m1, final Month m2) {
+            return Integer.compare(m1.getDays(), m2.getDays());
+        }
     };
 
     @Override
     public Comparator<String> sortByDays() {
-
-        return null;
+        return new Comparator<String>() {
+            @Override
+            public int compare(final String month1, final String month2) {
+                return Month.compareDays(
+                    Month.fromString(month1), 
+                    Month.fromString(month2)
+                );
+            }
+        };
     }
 
     @Override
     public Comparator<String> sortByOrder() {
-        return null;
+        return new Comparator<String>() {
+            @Override
+            public int compare(final String month1, final String month2) {
+                return Month.compare(
+                    Month.fromString(month1), 
+                    Month.fromString(month2)
+                ); 
+            }
+        };
     }
 }
